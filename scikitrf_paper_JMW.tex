@@ -74,18 +74,25 @@
 \affil{810 Labs LLC} 
 \corresp{CORRESPONDING AUTHOR: A. Arsenovic (e-mail: \href{mailto:alex@810lab.com}{alex@810lab.com}).}
 
+% After Alex, should we  proceed by GitHub contributor ranking or by alphabetical order ?
+%
+% GitHub list of contributors
+% https://github.com/scikit-rf/scikit-rf/graphs/contributors
+
 \author{J. Hillairet\affilmark{2}}
 \affil{CEA, IRFM, F-13108 St-Paul-Lez-Durance, France} 
 
+\author{J. Anderson\affilmark{3}}
+\affil{Purdue University, West Lafayette, Indiana, USA}
 
-\author{H. Forsten\affilmark{3}}
+\author{H. Forsten\affilmark{4}}
 \affil{TBD} 
 
-\author{Michael Eller\affilmark{4}}
-\affil{University of Virginia}
+\author{Michael Eller\affilmark{5}}
+\affil{University of Virginia, Virginia, USA}
 
 \author{Noah Sauber\affilmark{5}}
-\affil{University of Virginia}
+\affil{University of Virginia, Virginia, USA}
 
 \author{Robert Weikle\affilmark{6}}
 \affil{TBD}
@@ -99,7 +106,7 @@
 \markboth{PREPARATION OF PAPERS FOR IEEE JOURNAL OF MICROWAVES}{A. ARSENOVIC {\itshape ET AL}}
 
 \begin{abstract}
-Measurements at microwave frequencies can requir ea  significant  amount post-processing  and  analysis,  especially  in research  and  prototyping environments.  From  our  experience,none   of   the   existing   software   products  satisfy   the   needs   ofthese environments in which the abilities to understand, modify,and  extend  existing  functionality  are  vital.  In  an  attempt  toprovide this  needed  functionality,  we  have  created  scikit-rf;  an open  source,  BSD-licensed  package  for  microwave  engineering implemented   in   the   Python  programming   language.   scikit-rf seeks  to  provide  a  modern,  object-oriented  library  for  network analysis  and  calibration  aimed  at  being  flexible  and scalable.In  this  paper  we  introduce  the  motivation  behind  the  scikit-rf  project   and   demonstrate   it’s  current   abilities   with   some applications.
+Measurements at microwave frequencies can require a  significant  amount post-processing  and  analysis,  especially  in research  and  prototyping environments.  From  our  experience, none  of   the   existing   software   products  satisfy   the   needs   of these environments in which the abilities to understand, modify, and  extend  existing  functionality  are  vital.  In  an  attempt  to provide this  needed  functionality,  we  have  created  scikit-rf;  an open  source,  BSD-licensed  package  for  microwave  engineering implemented   in   the   Python  programming   language.   scikit-rf seeks  to  provide  a  modern,  object-oriented  library  for  network analysis  and  calibration  aimed  at  being  flexible  and scalable. In  this  paper,  we  introduce  the  motivation  behind  the  scikit-rf  project   and   demonstrate  its  current   abilities   with   some applications.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -109,18 +116,18 @@ Measurements at microwave frequencies can requir ea  significant  amount post-pr
 \maketitle
 
 \section{Context and Motivations}
-scikit-rf is a Python package produced for RF/Microwave engineering. The package provides a modern, object-oriented library for RF network analysis, circuit building and calibration. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp} files), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as Vector Network Analyzer (VNA) calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds.
+With the rapid proliferation of telecommunication and radio-frequency (RF) applications, so too has demand grown for tools to design and characterize these devices. Scikit-rf is a Python package designed to make RF/Microwave engineering both robust and approachable. The package provides a modern, object-oriented library for RF network analysis, circuit building and calibration. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp} files), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as Vector Network Analyzer (VNA) calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds.
  
-The project has been created in 2009 and continually developed since. The package is licensed under the Berkeley Software Distribution (BSD) licence and is actively developed by more than 40 volunteers on GitHub. The project has users in several universities and research institutes around the world as well from large companies including Keysight, Rohde \& Schwarz, National Instruments, Nvidia, and 3M. In 2021, the package has been downloaded more than 220 000 times since its creation.
+The project was created in 2009 and has been continually developed since. The package is distributed under the Berkeley Software Distribution (BSD) licence and is actively developed by more than 40 volunteers on GitHub. The project has users in several universities and research institutes around the world as well as corporate users from large companies including Keysight, Rohde \& Schwarz, National Instruments, Nvidia, and 3M. As of 2021, the package has been downloaded more than 220,000 times since its creation and has been used in over thirty publications.
 
-As the package is developed in Python, it makes it naturally compatible with the rich and modern scientific Python libraries. Results can be shared and even directly reproduced using tools such as Binder or Google Colab, by other researchers (or future self) few months or years after work had been made. It also makes it naturally compatible with the rich and modern testing and code coverage frameworks and reproducible modelling approaches using online virtualization services. Being open-source, using scikit-rf with reproducible workflow adds confidence in the fact that future users could use/maintain and extend it. And of course, it is free.
+As the package is developed in Python, it makes it naturally compatible with the rich set of modern scientific Python libraries. Results can be shared and directly reproduced by other researchers using tools such as Binder or Google Colab. Being a python library, it is also naturally compatible with the robust testing and code coverage frameworks developed for the language, with reproducible modelling approaches using online virtualization services. Being open-source, users of scikit-rf are able to see exactly what the source code is doing and, if a feature does not exist, are able to freely contribute it to extend the library for their work and for others. And of course, it is free.
 
 \section{Basics Usage of scikit-rf}
+
+Detailed installation instructions can be found in the scikit-rf documentation (\url{https://scikit-rf.readthedocs.io/en/latest/}). For those familiar with Python, it is no different from installing any other package, being available through both pip and conda. The following sections outline some of the fundamental features of scikit-rf, and include code snippets to provide a starting point for new users.
+
 \subsection{Reading and Plotting Networks}
 
-Once installed (see documentation)
-
-From now, code snippets are supposed to be run with Python. 
 
 The central object in the scikit-rf package is a N-port microwave Network object. A Network can be created in various ways, for example by reading a Touchstone file named \texttt{measured\_data.s2p}:
 
@@ -140,12 +147,12 @@ In order for the reader to reproduce the given examples, a test-case is provided
 
 The basic attributes of a microwave Network are provided by the following properties:
 \begin{itemize}
-\item s: Scattering Parameter matrix.
-\item z0: Port Impedance matrix.
-\item frequency: Frequency Object.
+\item \texttt{s}: Scattering parameter matrix.
+\item \texttt{z0}: Port impedance matrix.
+\item \texttt{frequency}: Frequency Object.
 \end{itemize}
 
-S-parameters are represented by a ($n_{bf} \times N \times N$) NumPy (https://numpy.org/) array, where $n_{bf}$ is the number of frequency points and $N$ is the number of ports of the network. For example, to inspect the 2-by-2 S-parameters for the first frequency element:
+S-parameters are represented by a ($n_{bf} \times N \times N$) NumPy (\url{https://numpy.org/}) array\cite{harris2020}, where $n_{bf}$ is the number of frequency points and $N$ is the number of ports of the network. For example, to inspect the 2-by-2 S-parameters for the first frequency element:
 
 \begin{lstlisting}[language=Python]
 >>> ring_slot.s[0]  # or ring_slot.s[0,:]
@@ -153,7 +160,7 @@ array([[-0.50372318+0.4578448j ,  0.6134571 +0.36678139j],
 [ 0.6134571 +0.36678139j, -0.19958433+0.6483347j ]])
 \end{lstlisting}
 
-The Network object has numerous other properties and methods which can found in  \href{https://scikit-rf.readthedocs.io}{the documentation}. If you are using IPython, the Jupyter Notebook or any advanced Python editor (such as Spyder), then these properties and methods can be ‘tabbed’ out on the command line.
+The Network object has numerous other properties and methods which can found in  \href{https://scikit-rf.readthedocs.io}{the documentation}. If you are using IPython\cite{perez2007}, the Jupyter Notebook\cite{granger2021} or any advanced Python editor, then these properties and methods can be ‘tabbed’ out on the command line.
 
 \begin{lstlisting}[language=Python]
 >>> ring_slot.s<TAB>
@@ -161,7 +168,7 @@ ring_slot.s ring_slot.s_arcl
 ring_slot.s11 ring_slot.s_arcl_unwrap ...
 \end{lstlisting}
 
-Plotting the ring slot’s scattering parameters on the smith chart can be done in one line (figure~\ref{fig:figure1}).
+Plotting the ring slot’s scattering parameters on the Smith chart can be done in one line (figure~\ref{fig:figure1}).
 
 \begin{lstlisting}[language=Python]
 >>> from matplotlib import pyplot as plt
@@ -177,7 +184,7 @@ Plotting the ring slot’s scattering parameters on the smith chart can be done 
 	\label{fig:figure1}
 \end{figure}
 
-Frequency ranges of networks can also be selected by using human-readable strings as you would array indices’. For instance, the following line will plot the log magnitude of $S_{11}$ for the frequency range of 80-90~GHz (figure~\ref{fig:figure2}), expressed in "natural" language:
+Frequency ranges of networks can also be selected by using human-readable strings, as you would array indices’. For instance, the following line will plot the log magnitude of $S_{11}$ for the frequency range of 80-90~GHz (figure~\ref{fig:figure2}), expressed in "natural" language:
 
 \begin{lstlisting}[language=Python]
 >>> ring_slot['80-90ghz'].plot_s_db(m=0, n=0)
@@ -190,7 +197,7 @@ Frequency ranges of networks can also be selected by using human-readable string
 	\label{fig:figure2}
 \end{figure}
 
-Other parameters are accessible, such as $Z$, $Y$, $T$ or ABCD parameters using \texttt{ring\_slot.z}, \texttt{ring\_slot.y}, \texttt{ring\_slot.t} or \texttt{ring\_slot.a} respectively. Several other features related to network processing can be found in the scikit-rf documentation. The next sections illustrate a few of them. 
+Other parameters are accessible, such as impedance ($Z$), admittance ($Y$), transfer ($T$) or chain (ABCD) parameters using \texttt{ring\_slot.z}, \texttt{ring\_slot.y}, \texttt{ring\_slot.t} or \texttt{ring\_slot.a} respectively. Several other features related to network processing can be found in the scikit-rf documentation. The next sections illustrate a few of them. 
 
 \subsection{Network Operations}
 Element-wise mathematical operations on the scattering parameter matrices are accessible through overloaded operators. Hence, networks can be added, subtracted, multiplied along frequency and port axes. For example, to plot the complex difference between a \texttt{short} and a \texttt{delayshort}:
@@ -277,12 +284,12 @@ array([[0.33333333+0.j]])
 \end{lstlisting}
 
 \section{Calibration}
-It is possible with scikit-rf to calibrate a device under test (DUT), assuming that an acceptable set of standards have been preliminary measured and have a corresponding set of ideal responses. This may be referred to as offline calibration, because it is not occurring on-board the VNA itself. One benefit of this technique is that it provides maximum flexibility for non-conventional calibrations, and preserves all raw data. Self-calibration algorithms, such as Thru-Reflect-Line (TRL), do not require predefined ideal responses.
+It is possible with scikit-rf to calibrate a device under test (DUT), assuming that an acceptable set of standards have been preliminarily measured and have a corresponding set of ideal responses. This may be referred to as \textit{offline} calibration, because it is not occurring on-board the VNA itself. One benefit of this technique is that it provides maximum flexibility for non-conventional calibrations, and preserves all raw data. Self-calibration algorithms, such as Thru-Reflect-Line (TRL)\cite{engen1979}, do not require predefined ideal responses.
 
-In some cases, it may be necessary or desirable to use a one-port network analyser to determine the full S-parameters of a two-port device. This technique is called one-port two-tier calibration and is implemented in scikit-rf. Several other calibration routines are available in scikit-rf, such as overdetermined one-port and Unknown-thru as well as some special algorithms developed by our contributors. A complete list can be found on the scikit-rf website and only few examples are given in this Section.
+Several calibration routines are available in scikit-rf, for single port, two-ports or multi-ports Networks. Traditional 12 \cite{marks1997} or 16-terms \cite{silvonen1993} error models are available, but also 8-terms models \cite{speciale1977}, Short-Open-Load-Thru (SOLT) \cite{kruppa1971}, overdetermined one-port \cite{bauer1974}, Unknown-Thru \cite{ferrero1992}, Short-Delay-Delay-Load (SDDL) \cite{liu2006} or some special algorithms developed by our contributors. In some cases, it may be necessary or desirable to use a one-port network analyser to determine the full S-parameters of a two-port device. This technique is called one-port two-tier calibration \cite{ou2005} and is also implemented in scikit-rf. A complete list can be found on the scikit-rf website, and only a single one-port is given as an example in this section.
 
 \subsection{One-Port Example}
-A calibration in scikit-rf is generated using the Calibration object. In General, Calibration objects require two arguments: a list of measured Network’s and a list of ideal Network’s. The following example assumes that a set of measured and ideal networks are stored in separate directories named ideals and measured, for example a conventional short-open-load (SOL) calibration kit. These are used to create a One-Port Calibration and correct a measured DUT:
+A calibration in scikit-rf is generated using the \texttt{Calibration} object. In General, \texttt{Calibration} objects require two arguments: a list of measured Network’s and a list of ideal Network’s. The following example assumes that a set of measured and ideal networks are stored in separate directories named ideals and measured, for example a conventional short-open-load (SOL) calibration kit. These are used to create a One-Port \texttt{Calibration} and correct a measured DUT:
 
 \begin{lstlisting}[language=Python]
 import skrf as rf
@@ -302,16 +309,16 @@ dut = rf.Network('my_dut.s1p')
 dut_caled = cal.apply_cal(dut)
 \end{lstlisting}
 
-\subsection{Two-Port Calibrations}
-Two-port calibrations are more involved than one-port. scikit-rf supports a few different two-port algorithms. The traditional SOLT algorithm uses the 12-term error model. This algorithm is straightforward, and similar to the \texttt{OnePort} example. The \texttt{EightTerm} calibration is based on the algorithm described in \cite{speciale1977}. It can be constructed from any number of standards, providing that some fundamental constraints are met. In short, you need three two-port standards; one must be transmissive, and one must provide a known impedance and be reflective. Note, that the word 8-term is used in the literature to describe a specific error model used by a variety of calibration algorithms, like TRL, LRM, etc. The \texttt{EightTerm} class, is an implementation of the algorithm cited above, which does not use any self-calibration.
+%\subsection{Two-Port Calibrations}
+%Two-port calibrations are more involved than one-port. scikit-rf supports a few different two-port algorithms. The traditional SOLT algorithm uses the 12-term error model. This algorithm is straightforward, and similar to the \texttt{OnePort} example. The \texttt{EightTerm} calibration is based on the algorithm described in \cite{speciale1977}. It can be constructed from any number of standards, providing that some fundamental constraints are met. In short, you need three two-port standards; one must be transmissive, and one must provide a known impedance and be reflective. Note, that the word 8-term is used in the literature to describe a specific error model used by a variety of calibration algorithms, like TRL, LRM, etc. The \texttt{EightTerm} class, is an implementation of the algorithm cited above, which does not use any self-calibration.
 
 \subsection{Multi-Line TRL Calibration}
-scikit-rf can also be used for wideband Thru-Reflect-Line (TRL) calibration using multiple lines \cite{marks1991}. The necessary calibration standards in TRL calibration are at least two lines with different lengths and one or more reflective standards. Exact responses of the lines or reflects doesn’t need to be known because they are solved during the calibration. Ordinary SOLT or LRRM calibration usually moves the reference plane after the calibration to the SMA connector or probe tip used to contact the calibration standards. TRL calibration can be used to move the reference planes to the transmission lines on the substrate being measured if every measured standard includes a similar launch to the transmission lines. This makes TRL calibration very useful when accurate short, open, load and thru standards can’t be made or the measurement reference plane should be on the substrate being measured. 
+scikit-rf can also be used for wideband Thru-Reflect-Line (TRL) calibration using multiple lines \cite{marks1991}. The necessary calibration standards in TRL calibration are at least two lines with different lengths and one or more reflective standards. Exact responses of the lines or reflects doesn’t need to be known because they are solved during the calibration. Ordinary SOLT or LRRM \cite{davidson1990} calibration usually moves the reference plane after the calibration to the SMA connector or probe tip used to contact the calibration standards. TRL calibration can be used to move the reference planes to the transmission lines on the substrate being measured if every measured standard includes a similar launch to the transmission lines. This makes TRL calibration very useful when accurate short, open, load and thru standards can’t be made, or when the measurement reference plane should be on the substrate being measured. 
 
 \section{Time Domain and Gating}
-Time-gating is a processing technique which is commonly used to pinpoint a response of interest in the presence of multiple reflections, eventually in order to isolate its effects. Commonly this is done on-board a VNA. However, if instead the time-gating occurs offline on a computer, the user can keep the measurements separate from the processed results. This is important so that the processing algorithm can be altered in the future without re-taking data. 
+Time-gating is a processing technique which is commonly used to pinpoint a response of interest in the presence of multiple reflections, eventually in order to isolate its effects \cite{cronson1973, bennett1978}. Commonly, this is done on-board a VNA. However, if instead the time-gating occurs offline on a computer, the user can keep the measurements separate from the processed results. This is important so that the processing algorithm can be altered in the future without re-taking data. 
 
-In the following example, the time-gating functions of scikit-rf are used to filter out the effects of an undesired reflection. This can be done by using the method \texttt{Network.time\_gate}, and provide it an appropriate centre and span (in nanosecond). To see the effects of the gate, both the original and gated response are compared:
+In the following example, the time-gating functions of scikit-rf are used to filter out the effects of an undesired reflection. This can be done by using the method \texttt{Network.time\_gate}, and provide it an appropriate centre and span (in nanosecond). To see the effects of the gate, both the original and gated response are compared in the figure~\ref{fig:gated1}:
 
 \begin{lstlisting}[language=Python]
 >>> # probe_s11 and s11 data are available in the scikit-rf documentation
@@ -329,7 +336,7 @@ In the following example, the time-gating functions of scikit-rf are used to fil
 \end{figure}
 
 
-The original $S_{11}$ shows an interference pattern due to this undesirable reflection at \SI{0.2}{\nano\second}. After gating, the probe response can be compared to the original one:
+The original $S_{11}$, blue curve in figure~\ref{fig:timedomain1}, shows an interference pattern due to this undesirable reflection at \SI{0.2}{\nano\second}. After gating, the probe response is cleaned and can be compared to the original one (red curve in figure~\ref{fig:timedomain1}):
 
 \begin{lstlisting}[language=Python]
 >>> s11.plot_s_db()
@@ -339,15 +346,15 @@ The original $S_{11}$ shows an interference pattern due to this undesirable refl
 \begin{figure}
 	\centering
 	\includegraphics[width=0.95\linewidth]{figures/gated1}
-	\caption{Comparison of the original S11 response with the time-gated one.}
+	\caption{Comparison of the original $S_{11}$ response with the time-gated one.}
 	\label{fig:timedomain1}
 \end{figure}
 
 
 \section{Circuit Building}
-scikit-rf allows one to build a circuit of arbitrary topology, consisting of an arbitrary number of N-ports Networks connected together. Like in an electronic circuit simulator, the circuit must have one (or more) Port connected to the circuit. The \texttt{Circuit} object allows one retrieving the final M-ports Network (and thus its network parameters: $S$, $Z$, etc.), where M is the number of ports defined. Moreover, the \texttt{Circuit} object also allows calculating the scattering matrix $S$ of the entire circuit, that is the "internal" scattering matrices for the various intersections in the circuit. The calculation algorithm is based on ref \cite{hallbjorner2003}.
+scikit-rf allows one to build a circuit of arbitrary topology, consisting of an arbitrary number of N-ports Networks connected together. Like in an electronic circuit simulator, the circuit must have one (or more) port(s) connected to the circuit. The \texttt{Circuit} object allows one retrieving the final $M$-ports Network (and thus its network parameters: $S$, $Z$, etc.), where $M$ is the number of ports defined. Moreover, the \texttt{Circuit} object also allows calculating the scattering matrix $S$ of the entire circuit, that is the "internal" scattering matrices for the various intersections in the circuit. The calculation algorithm is based on ref \cite{hallbjorner2003}.
 
-The figure~\ref{fig:circuit} illustrates a network with 2 ports, Network elements Ni and intersections. In order to define such circuit, one should define its connexion list, which describes how networks are interconnected to each other and to which ports, such as:
+The figure~\ref{fig:circuit} illustrates a network with 2 ports, Network elements $N_i$ and intersections. In order to define such circuit, one should define its connexion list, which describes how networks are interconnected to each other and to which ports, such as:
 \begin{lstlisting}[language=Python]
 connexions = [
 [(network1, network1_port_nb), (network2, network2_port_nb), (network2, network2_port_nb), ...], 
@@ -368,18 +375,18 @@ For example, the connexion list to construct the circuit illustrated in figure~\
 ]
 \end{lstlisting}
 
-where we have assumed that \texttt{port1}, \texttt{port2}, \texttt{ground1} and all the \texttt{network1} to \texttt{network5} are scikit-rf Networks objects with same Frequency. Networks can have different (real) characteristic impedances: mismatch are taken into account. Note that the port 1 of the \texttt{network4} is left open, so is not described in the connexion list. Once the connexion list is defined, the Circuit with:
+where we have assumed that \texttt{port1}, \texttt{port2}, \texttt{ground1} and all the \texttt{network1} to \texttt{network5} are scikit-rf Networks objects with same Frequency. Networks can have different (real) characteristic impedances: mismatch are taken into account. Note that the port 1 of the \texttt{network4} is left open, so is not described in the connexion list. Once the connexion list is defined, the \texttt{Circuit} is built with:
 
 \begin{lstlisting}[language=Python]
 resulting_circuit = rf.Circuit(connexions)
 \end{lstlisting}
 
-The resulting 2-ports Network is obtained with the Circuit.network parameter:
+The resulting 2-ports Network is obtained with the \texttt{Circuit.network} parameter:
 \begin{lstlisting}[language=Python]
 resulting_network = resulting_circuit.network
 \end{lstlisting}
 
-Note that it is also possible to create manually a circuit of multiple Network objects using the connecting methods of scikit-rf. Although the Circuit approach to build a multiple Network may appear to be more verbose than the "classic" way for building a circuit, as the circuit complexity increases, in particular when components are connected in parallel, the Circuit approach is interesting as it increases the readability of the code. Moreover, a \texttt{Circuit}'s topology can be plotted using its \texttt{plot\_graph} method, which is useful to rapidly control if the circuit is built as expected.
+Note that it is also possible to create manually a circuit of multiple Network objects using the connecting methods of scikit-rf. Although the \texttt{Circuit} approach to build a multiple Network may appear to be more verbose than the "classic" way for building a circuit, as the circuit complexity increases, in particular when components are connected in parallel, the \texttt{Circuit} approach is interesting as it increases the readability of the code. Moreover, a \texttt{Circuit}'s topology can be plotted using its \texttt{plot\_graph} method, which is useful to rapidly control if the circuit is built as expected.
 
 \begin{figure}
 	\centering
@@ -389,17 +396,20 @@ Note that it is also possible to create manually a circuit of multiple Network o
 	\label{fig:circuit}
 \end{figure}
 
+\section{Conclusion}
 scikit-rf is an open-source Python package produced for RF/Microwave engineering. The package provides a modern, object-oriented library for RF network analysis, circuit building and calibration. Below is a current non-exhaustive feature list of scikit-rf (as of version 0.18).
 
 \begin{itemize}
-	\item	Microwave Network Operations
+	\item	Microwave network operations
 	\begin{itemize}
 	\item	Read/Write touchstone (.sNp) files
 	\item	S/Z/Y/ABCD/T - parameter conversions
 	\item	Arithmetic operations on scattering parameters
-	\item	Cascade/De-embed 2-port networks
+	\item   Mixed mode and single ended port conversion
+	\item	Cascade/De-embed Networks
 	\item	Frequency and port slicing and concatenation.
-	\item	Connect N-port networks
+	\item   Assembly of multiple-port networks
+	\item    Vector fitting of equivalent circuit to S-parameters with SPICE netlist export
 	\end{itemize}
 \item	Sets of Networks:
 	\begin{itemize}
@@ -409,9 +419,9 @@ scikit-rf is an open-source Python package produced for RF/Microwave engineering
 	\end{itemize}
 \item	Plotting abilities:
 	\begin{itemize}
-		\item Rectangular Plots ( dB, mag, Phase, group delay)
-		\item Smith Chart
-		\item Automated Uncertainty bounds
+		\item Rectangular plots (dB, mag, phase, group delay)
+		\item Smith chart
+		\item Automated uncertainty bounds
 	\end{itemize}
 \item	Calibration Routines:
 	\begin{itemize}
@@ -427,24 +437,21 @@ scikit-rf is an open-source Python package produced for RF/Microwave engineering
 	\end{itemize}
 \item	Transmission Line Physics:
 	\begin{itemize}
-		\item Coax, CPW, Freespace, RectangularWaveguide, DistributedCircuit.
-		\item Transmission Lines losses and power calculations
-		\item Support Complex Characteristic Impedances
+		\item Distributed Circuit, Coaxial/Coplanar/Rectangular/Circular Waveguides, Freespace, 
+		\item Transmission line voltage, current, power and losses calculations
+		\item Complex characteristic impedance support
 	\end{itemize}
-\item Circuit builder:
-	\begin{itemize}
-		\item Assembly of multiple-port networks
-	\end{itemize}
+
 \end{itemize}
 
-\section{Contributing}
-scikit-rf is a free and open-source project. For those seeking help or reporting bugs, there is a public mailing list and github issues tracker which can be found on the scikit-rf website (\url{https://scikit-rf.org}). If you would to participate in development, first join github (\url{https://github.com}) and then take a look at the scikit-rf development pages. For companies or individuals who need private support and development services, feel free to contact 810 Labs LLC (\url{http://810lab.com/}).
+In addition to these rich features, there are also GUIs for time gating and sNp file viewing, with source code available at \url{https://github.com/scikit-rf/dash-apps} and functional demos hosted by Plotly at \url{https://dash-gallery.plotly.host/Portal/}. 
 
-\section{Conclusion}
+\section{Contributing}
+scikit-rf is a free and open-source project. For those seeking help or reporting bugs, there is a public mailing list and GitHub issues tracker which can be found on the scikit-rf website (\url{https://scikit-rf.org}). If you would to participate in development, first join GitHub (\url{https://github.com}) and then take a look at the scikit-rf development pages. For companies or individuals who need private support and development services, feel free to contact 810 Labs LLC (\url{http://810lab.com/}).
 
 %%%%%%%% ACKNOWLEDGMENT
 \section*{ACKNOWLEDGMENT}
-TODO
+Scikit-rf would not be possible without the feedback, bug fixes, and new features contributed by its user community. For a complete list of contributers, see \url{https://github.com/scikit-rf/scikit-rf/graphs/contributors}.
 
 %%%%%%%% REFERENCES
 %\section*{REFERENCES}
