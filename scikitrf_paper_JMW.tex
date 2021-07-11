@@ -1,17 +1,20 @@
-\documentclass[journal, onecolumn]{IEEEtran}
+\documentclass[10pt, letterpaper, twosides]{scrartcl}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage[colorlinks,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+
+% double spacing recommended by Microwave Magazine for review process
+\usepackage{setspace}
+\doublespacing
 
 \usepackage{color,array}
 
 \usepackage{graphicx}
 \usepackage{siunitx}
-\usepackage{subfig}
-%\usepackage[style=numeric]{biblatex}
-%\addbibresource{biblio.bib}
+\usepackage[labelformat=simple]{subfig}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}    % creates parentheses for "Fig. 1(a)"
 
 \usepackage{hyperref}
 \hypersetup{
@@ -19,22 +22,15 @@
 	linkcolor=blue,
 	filecolor=magenta,      
 	urlcolor=cyan,
-	pdfpagemode=FullScreen,
+	citecolor=blue
 }
-
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\setcounter{page}{1}
-%% \setcounter{secnumdepth}{0}
 
 %% Python listing def
 \usepackage{listings}
-
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
 \lstdefinestyle{mystyle}{
 	backgroundcolor=\color{backcolour},  
 	commentstyle=\color{codegreen},
@@ -53,11 +49,7 @@
 	showtabs=false,                 
 	tabsize=2
 }
-
 \lstset{style=mystyle}
-
-
-\begin{document}
 
 \title{Scikit-rf - An Open Source Python Package for Microwave Network Creation, Analysis and Calibration} 
 
@@ -69,25 +61,31 @@
 	    J. Hillairet, % CEA, IRFM, F-13108 St-Paul-Lez-Durance, France 
 		J. Anderson, % Purdue University, West Lafayette, Indiana, USA
 		H. Forsten, % TBD
-		Vincent Rieß, % TBD
+		Vincent Rieß, \\ % TBD
  		Michael Eller, % University of Virginia, Virginia, USA
 		Noah Sauber, %University of Virginia, Virginia, USA
 		Robert Weikle, %
-		W. Barnhart, %HawkEye 360
+		William Barnhart %HawkEye 360
 	}
 
 %CORRESPONDING AUTHOR: A. Arsenovic (e-mail: \href{mailto:alex@810lab.com}{alex@810lab.com}).
 
+\date{}
+
+% an abstract is not required/allowed for the Mircowave Magazine
+%\begin{abstract}
+%Measurements at microwave frequencies can require a  significant  amount of post-processing  and  analysis,  especially  in research  and  prototyping environments.  From  our  experience, none  of   the   existing   software   products  satisfy   the   needs   of these environments in which the abilities to understand, modify, and  extend  existing  functionality  are  vital.  In  an  attempt  to provide this  needed  functionality,  we  have  created  scikit-rf;  an open  source,  BSD-licensed  package  for  microwave  engineering implemented   in   the   Python  programming   language.   Scikit-rf seeks  to  provide  a  modern,  object-oriented  library  for  network analysis  and  calibration  aimed  at  being  flexible  and scalable. In  this  paper,  we  introduce  the  motivation  behind  the  scikit-rf  project   and   demonstrate  its  current   abilities   with   some example applications.
+%\end{abstract}
+
+%\begin{IEEEkeywords}
+%Scientific computing, Object oriented programming, Network theory, Circuit analysis, Circuit simulation, Microwave circuits
+%\end{IEEEkeywords}
+
+\begin{document}
+
+
 % make the title area
 \maketitle
-
-\begin{abstract}
-Measurements at microwave frequencies can require a  significant  amount of post-processing  and  analysis,  especially  in research  and  prototyping environments.  From  our  experience, none  of   the   existing   software   products  satisfy   the   needs   of these environments in which the abilities to understand, modify, and  extend  existing  functionality  are  vital.  In  an  attempt  to provide this  needed  functionality,  we  have  created  scikit-rf;  an open  source,  BSD-licensed  package  for  microwave  engineering implemented   in   the   Python  programming   language.   Scikit-rf seeks  to  provide  a  modern,  object-oriented  library  for  network analysis  and  calibration  aimed  at  being  flexible  and scalable. In  this  paper,  we  introduce  the  motivation  behind  the  scikit-rf  project   and   demonstrate  its  current   abilities   with   some example applications.
-\end{abstract}
-
-\begin{IEEEkeywords}
-Scientific computing, Object oriented programming, Network theory, Circuit analysis, Circuit simulation, Microwave circuits
-\end{IEEEkeywords}
 
 \section{Context and Motivations}
 With the rapid proliferation of telecommunication and radio-frequency (RF) applications, so too has demand grown for tools to design and characterize these devices. Scikit-rf is a Python package designed to make RF/Microwave engineering both robust and approachable. The package provides a modern, object-oriented library for RF network analysis, circuit building, calibration, and simulation. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp} files), connecting or de-embedding $N$-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as Vector Network Analyzer (VNA) calibrations, time-gating, vector fitting, interpolating between an individual set of networks, deriving network statistical properties and support of Virtual Instruments for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc.), Smith Charts or automated uncertainty bounds.
@@ -98,14 +96,18 @@ As the package is developed in Python, it makes it naturally compatible with the
 
 \section{Basic Usage of Scikit-rf}
 
-Detailed installation instructions can be found in the scikit-rf documentation (\url{https://scikit-rf.readthedocs.io/en/latest/}). For those familiar with Python, it is no different from installing any other package, being distributed through both pip and Conda. The following sections outline some of the fundamental features of scikit-rf, and include code snippets to provide a starting point for new users.
+Detailed installation instructions can be found in the scikit-rf documentation (\url{https://scikit-rf.readthedocs.io/en/latest/}). For those familiar with Python, it is no different from installing any other package, being distributed through both pip and Conda. After installation, the package can be imported, which is assumed for all of the following examples:
+\begin{lstlisting}[language=Python]
+import skrf
+\end{lstlisting}
+
+The following sections outline some of the fundamental features of scikit-rf, and include code snippets to provide a starting point for new users.
 
 \subsection{Reading and Plotting Networks}
 The central object in the scikit-rf package is a $N$-port microwave \texttt{Network} object. A \texttt{Network} can be created in various ways, for example by reading a Touchstone file named \texttt{measured\_data.s2p}:
 
 \begin{lstlisting}[language=Python]
->>> import skrf as rf
->>> example_network = rf.Network('measured_data.s2p')
+example_network = skrf.Network('measured_data.s2p')
 \end{lstlisting}
 
 In order for the reader to reproduce the given examples, a test-case is provided in the package and can be imported via:
@@ -139,34 +141,27 @@ ring_slot.s ring_slot.s_arcl
 ring_slot.s11 ring_slot.s_arcl_unwrap ...
 \end{lstlisting}
 
-Plotting the ring slot’s scattering parameters on the Smith chart can be done in one line; with the output shown in Fig.~\ref{fig:figure1}:
+Scikit-rf uses the \textit{matplotlib} package \cite{Hunter:2007} to generate various different types plots for the attributes of a \texttt{Network}. For example, plotting the ring slot’s scattering parameters on the Smith chart can be done in one line; with the output shown in Fig.~\ref{fig:ringslot_smith}:
 
 \begin{lstlisting}[language=Python]
 >>> from matplotlib import pyplot as plt
->>> %matplotlib inline # used in jupyter notebook
 >>> ring_slot.plot_s_smith(lw=2)
 >>> plt.xlim(-1,2)
 \end{lstlisting}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.95\linewidth]{figures/figure1}
-	\caption{Scattering parameters of the \texttt{ring\_slot} plotted on a Smith chart.}
-	\label{fig:figure1}
+	\subfloat[]{\includegraphics[\width=0.45\textwidth]{figures/ringslot_smith.pdf} \label{fig:ringslot_smith}}
+	\subfloat[]{\includegraphics[\width=0.45\textwidth]{figures/ringslot_db.pdf} \label{fig:ringslot_db}}
+	\caption{Scattering parameters of the \texttt{ring\_slot} plotted on a Smith chart (a) and in logarithmic magnitude (b).}
+	\label{fig:ringslot}
 \end{figure}
 
-Frequency ranges of \texttt{Network}s can also be selected by using human-readable strings. For instance, the following line will plot the logarithmic magnitude of $S_{1,1}$ in decibels for the frequency range of $80-90$~GHz (figure~\ref{fig:figure2}), expressed in "natural" language:
+Frequency ranges of \texttt{Network}'s can also be selected by using human-readable strings. For instance, the following line will plot the logarithmic magnitude of $S_{1,1}$ in decibels for the frequency range of $80-90$~GHz, expressed in "natural" language. The output is shown in Fig. \ref{fig:ringslot_db}:
 
 \begin{lstlisting}[language=Python]
 >>> ring_slot['80-90ghz'].plot_s_db(m=0, n=0)
 \end{lstlisting}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.95\linewidth]{figures/figure2}
-	\caption{$S_{1,1}$ of \texttt{ring\_slot} Network plotted in log magnitude.}
-	\label{fig:figure2}
-\end{figure}
 
 Other parameters are accessible, such as impedance ($Z$), admittance ($Y$), transfer ($T$) or chain (ABCD) parameters using \texttt{ring\_slot.z}, \texttt{ring\_slot.y}, \texttt{ring\_slot.t} or \texttt{ring\_slot.a}, respectively. Several other features related to network processing can be found in the scikit-rf documentation. The next sections illustrate a few of them. 
 
@@ -197,7 +192,7 @@ Scikit-rf supports the connection of arbitrary ports of N-port networks. Cascadi
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.95\linewidth]{figures/cascading}
+	\includegraphics[width=0.7\linewidth]{figures/cascading.png}
 	\caption{Cascading two 2-Port \texttt{Network}s in scikit-rf works with the \texttt{**} operator.}
 	\label{fig:cascading}
 \end{figure}
@@ -212,7 +207,7 @@ True
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.95\linewidth]{figures/deembedding}
+	\includegraphics[width=0.9\linewidth]{figures/deembedding.png}
 	\caption{Illustration of de-embedding using the inverse and cascade operators in scikit-rf.}
 	\label{fig:deembedding}
 \end{figure}
@@ -223,9 +218,8 @@ As shown in the previous example, Python comparison operators such as \texttt{==
 The \texttt{NetworkSet} class is useful for analyzing multiple \texttt{.sNp} files initialized as \texttt{Network} objects or read from a directory. Plotting the uncertainty of a set can be used with the method \texttt{plot\_uncertainty\_bounds\_s\_db}, with the output shown in Fig.~\ref{fig:figure5}:
 
 \begin{lstlisting}[language=Python]
->>> import skrf as rf
 >>> from skrf.data import ro_1, ro_2, ro_3
->>> ntwk_list = rf.NetworkSet([ro_1, ro_2, ro_3])
+>>> ntwk_list = skrf.NetworkSet([ro_1, ro_2, ro_3])
 >>> ntwk_list.plot_s_db()
 [None, None, None]
 >>> ntwk_list.plot_uncertainty_bounds_s_db(label='ro mean with uncertainty, S11')
@@ -233,7 +227,7 @@ The \texttt{NetworkSet} class is useful for analyzing multiple \texttt{.sNp} fil
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.95\linewidth]{figures/s11_uncertainty.png}
+	\includegraphics[\width=0.45\textwidth]{figures/networkset_uncertainty.pdf}
 	\caption{Average and uncertainty bands of $S_{11}$ of three \texttt{Network} objects plotted in logarithmic magnitude.}
 	\label{fig:figure5}
 \end{figure}
@@ -241,9 +235,8 @@ The \texttt{NetworkSet} class is useful for analyzing multiple \texttt{.sNp} fil
 The standard deviations of data in a \texttt{NetworkSet} can be applied to a variety of attributes. The method \texttt{uncertainty\_ntwk\_triplet} can be utilized for gain output, similar to Fig.~\ref{fig:figure5}. For that case, the arguments \texttt{s\_mag} and \texttt{3} are used to specify that the uncertainty bounds should be for the magnitude of the scattering parameters within the range of 3 standard deviations.
 
 \begin{lstlisting}[language=Python]
->>> import skrf as rf
 >>> from skrf.data import ro_1, ro_2, ro_3
->>> ntwk_list = rf.NetworkSet([ro_1, ro_2, ro_3])
+>>> ntwk_list = skrf.NetworkSet([ro_1, ro_2, ro_3])
 >>> ntwk_mean, ntwk_lb, ntwk_ub = ntwk_list.uncertainty_ntwk_triplet('s_mag', 3)
 \end{lstlisting}
 
@@ -264,14 +257,14 @@ A related application is the need to combine networks which cover different freq
 
 \begin{lstlisting}[language=Python]
 >>> from skrf.data import wr2p2_line, wr1p5_line
->>> big_line = rf.stitch(wr2p2_line, wr1p5_line)
+>>> big_line = skrf.stitch(wr2p2_line, wr1p5_line)
 \end{lstlisting}
 
 \subsection{Port Impedance Re-Normalization}
 Scattering parameters are defined for a given reference impedance $Z_0$. It can be necessary to re-normalize these parameters to a different reference impedance. This example demonstrates how to use scikit-rf to re-normalize the  scattering parameters of a \texttt{Network} to different port impedances. Although trivial, this example creates a matched load in \SI{50}{\ohm} and then re-normalizes to a \SI{25}{\ohm} environment, producing a reflection coefficient of $1/3$. In case of complex reference impedances, scikit-rf supports both power-waves and pseudo-waves scattering parameter definitions \cite{williams2013}.
 
 \begin{lstlisting}[language=Python]
->>> match_at_50 = rf.wr10.match()
+>>> match_at_50 = skrf.wr10.match()
 >>> match_at_50
 1-Port Network: '',  75.0-110.0 GHz, 1001 pts, z0=[50.+0.j]
 >>> match_at_50.s[0]  # S-parameter for the first frequency point
@@ -292,20 +285,19 @@ Several calibration routines are available in scikit-rf, for single port, two-po
 A calibration in scikit-rf is generated using the \texttt{Calibration} object. In general, \texttt{Calibration} objects require two arguments: a list of measured \texttt{Network}’s and a list of ideal \texttt{Network}’s. The following example assumes that a set of measured and ideal network standards are stored in separate directories named \texttt{ideals} and \texttt{measured}, for example a conventional short-open-load (SOL) calibration kit. These are used to create a one-port \texttt{Calibration} and to subsequently correct a measured DUT:
 
 \begin{lstlisting}[language=Python]
-import skrf as rf
 from skrf.calibration import OnePort
 # reads all Touchstone files located in the specified directory
-my_ideals = rf.load_all_touchstones_in_dir('ideals/')
-my_measured = rf.load_all_touchstones_in_dir('measured/')
+my_ideals = skrf.load_all_touchstones_in_dir('ideals/')
+my_measured = skrf.load_all_touchstones_in_dir('measured/')
 # create a Calibration instance
-cal = rf.OnePort(\
+cal = skrf.OnePort(\
 ideals = [my_ideals[k] for k in ['short','open','load']],
 measured = [my_measured[k] for k in ['short','open','load']],
 )
 # run calibration algorithm
 cal.run()
 # apply it to a DUT
-dut = rf.Network('my_dut.s1p')
+dut = skrf.Network('my_dut.s1p')
 dut_caled = cal.apply_cal(dut)
 \end{lstlisting}
 
@@ -320,9 +312,8 @@ Time-gating is a processing technique which is commonly used to pinpoint a respo
 
 \begin{figure}
 	\centering
-	\subfloat{\includegraphics[width=0.95\linewidth]{figures/time_domain1} \label{fig:gated1}}
-	\\
-	\subfloat{\includegraphics[width=0.95\linewidth]{figures/gated1} \label{fig:timedomain1}}
+	\subfloat[]{\includegraphics[\width=0.45\textwidth]{figures/gating_timedomain.pdf} \label{fig:gating_timedomain}}
+	\subfloat[]{\includegraphics[\width=0.45\textwidth]{figures/gating_freqdomain.pdf} \label{fig:gating_freqdomain}}
 	\caption{Comparison of the original network response $S_{11}$ with its gated version. (a) In the time-domain. (b) In the frequency-domain.}
 	\label{figs:gating}
 \end{figure}
@@ -330,13 +321,16 @@ Time-gating is a processing technique which is commonly used to pinpoint a respo
 In the following example, the time-gating functions of scikit-rf are used to filter out the effects of an undesired reflection. This can be done by using the method \texttt{Network.time\_gate}, and provide it an appropriate centre and span (in nanoseconds):
 
 \begin{lstlisting}[language=Python]
->>> # probe_s11 and s11 data are available in the scikit-rf documentation
->>> probe_s11_gated = probe_s11.time_gate(center=0, span=.2)
->>> probe_s11_gated.name='gated probe'
->>> s11.plot_s_db_time()
->>> s11_gated.plot_s_db_time()
->>> s11.plot_s_db()
->>> s11_gated.plot_s_db()
+probe_s11 = skrf.Network('./probe.s2p').s11
+probe_s11.name = 'Probe'
+probe_s11_gated = probe_s11.time_gate(center=0, span=0.2)
+probe_s11_gated.name = 'Gated probe'
+# time-domain plot:
+s11.plot_s_db_time()
+s11_gated.plot_s_db_time()
+# frequency-domain plot:
+s11.plot_s_db()
+s11_gated.plot_s_db()
 \end{lstlisting}
 
 To see the effects of the gate, both the original and gated response are compared. As shown in Fig.~\ref{figs:gating}, the original response shows an interference pattern in the frequency-domain due to this undesirable reflection at \SI{0.2}{\nano\second}. After gating, the response is cleaned.
@@ -347,7 +341,7 @@ Scikit-rf enables the building of circuit with arbitrary topology, consisting of
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.95\linewidth]{figures/circuit}
+	\includegraphics[width=0.5\linewidth]{figures/circuit.png}
 	\caption{ Example of a \texttt{Circuit} made of various kinds of $N$-port \texttt{Network}'s.}
 	\label{fig:circuit}
 \end{figure}
@@ -377,7 +371,7 @@ The connection list to construct the \texttt{Circuit} illustrated in Fig.~\ref{f
 In this example, the \texttt{Circuit} elements \texttt{port1}, \texttt{port2}, \texttt{ground1} and all the \texttt{network1} to \texttt{network5} are assumed to be scikit-rf \texttt{Network} objects with same \texttt{Frequency} attribute. The individual networks can have different (real) reference impedances, but mismatch is taken into account. Note that port 1 of \texttt{network4} is left open, so is not described in the connection list. Once the connection list is defined, the \texttt{Circuit} is built with:
 
 \begin{lstlisting}[language=Python]
-resulting_circuit = rf.Circuit(connexions)
+resulting_circuit = skrf.Circuit(connections)
 \end{lstlisting}
 
 The resulting 2-ports \texttt{Network} is obtained with \texttt{Circuit.network}:
@@ -423,7 +417,6 @@ The fitting process involves running an iterative least-squares algorithm \cite{
 In scikit-rf, the class \texttt{VectorFitting} is instanced with the \texttt{Network} to be fitted. A subsequent call of the \texttt{vector\_fit} routine starts the fitting process with the number of real and complex-conjugate poles defined in the function arguments. Once the fitting is finished, the function \texttt{write\_spice\_subcircuit\_s} generates a SPICE subcircuit file based on the fitted poles $\mathbf{p}$, zeros $\mathbf{z}$, constants $\mathbf{d}$, and proportional coefficients $\mathbf{e}$ of the scattering parameter responses:
 
 \begin{lstlisting}[language=Python]
-import skrf
 nw = skrf.Network('example.s4p')
 vf = skrf.VectorFitting(nw)
 vf.vector_fit(n_poles_real=2, 
@@ -433,15 +426,16 @@ vf.write_spice_subcircuit_s('example.sp')
 
 \begin{figure}
 \centering
-\subfloat{\includegraphics{./figures/vectfit_comparison.pdf} \label{fig:vectfit_magnitude}}
+\subfloat[]{\includegraphics[width=0.45\textwidth]{./figures/vectfit_magnitude.pdf} \label{fig:vectfit_magnitude}}
+\hfill
+\subfloat[]{\includegraphics[width=0.45\textwidth]{./figures/vectfit_error.pdf} \label{fig:vectfit_error}}
 \\
-\vspace{-4mm}
-\subfloat{\includegraphics{./figures/vectfit_error.pdf} \label{fig:vectfit_error}}
-\caption{Selected scattering parameter responses of a vector fitted noisy 4-port example network. (a) Magnitudes in linear scale with markers for the samples and solid lines for the fit. (b) Absolute error magnitudes of the respective fits: absolute error $ = |S_{\mathrm{fit},i,1} - S_{\mathrm{sample},i,1}|$.}
+\subfloat[]{\includegraphics[width=0.7\textwidth]{./figures/vectfit_spice.pdf} \label{fig:vectfit_spice}}
+\caption{Selected scattering parameter responses of a vector fitted noisy 4-port example network. (a) Magnitudes in linear scale with markers for the samples and solid lines for the fit. (b) Absolute error magnitudes of the respective fits: absolute error $ = |S_{\mathrm{fit},i,1} - S_{\mathrm{sample},i,1}|$. (c) Simulation of the scattering parameters with \textit{ngspice} using the exported SPICE subcircuit.}
 \label{figs:vectfit}
 \end{figure}
 
-In Fig. \ref{figs:vectfit}, four of the 16 vector fitted scattering parameter responses of the example network are compared to the original network samples, showing an absolute error of less than $0.01$. SPICE simulations using the exported subcircuit file show a similar agreement. In general, the quality of the fit strongly depends on the choice of real and complex-conjugate starting poles, which should suite the number of resonances in the responses. Measurement noise in the sampled responses, as included in this 4-port example, further contributes to the deviation of the fit with the smooth basis functions used by the vector fitting method.
+In Fig. \ref{figs:vectfit}, four of the 16 vector fitted scattering parameter responses of the example network are compared to the original network samples, showing an absolute error of less than $0.01$. SPICE simulations using the exported subcircuit file in \textit{ngspice} \cite{ngspice_website} show a similar agreement. In general, the quality of the fit strongly depends on the choice of real and complex-conjugate starting poles, which should suite the number of resonances in the responses. Measurement noise in the sampled responses, as included in this 4-port example, further contributes to the deviation of the fit with the smooth basis functions used by the vector fitting method.
 
 \section{Conclusion}
 Scikit-rf is an open-source Python package produced for RF/Microwave engineering. The package provides a modern, object-oriented library for RF network analysis, circuit building and calibration. Below is a current non-exhaustive feature list of scikit-rf (as of version 0.18).
