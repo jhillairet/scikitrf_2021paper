@@ -1,4 +1,4 @@
-\documentclass{IEEEjmw}
+\documentclass[journal, onecolumn]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -22,23 +22,12 @@
 	pdfpagemode=FullScreen,
 }
 
-%\jvol{00}
-%\jnum{XX}
-%\paper{1234567}
-%\pubyear{2020}
-%\receiveddate{September XX, 2020}
-%\accepteddate{October XX, 2020}
-%\publisheddate{November~XX, 2020}
-%\currentdate{November~XX, 2020}
-%\doiinfo{JMW.2020.Doi Number}
-
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \setcounter{page}{1}
 %% \setcounter{secnumdepth}{0}
 
 %% Python listing def
-
 \usepackage{listings}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -70,51 +59,27 @@
 
 \begin{document}
 
-%\sptitle{Article Category}
-
 \title{Scikit-rf - An Open Source Python Package for Microwave Network Creation, Analysis and Calibration} 
 
-%\editor{The associate editor coordinating the review of this manuscript and approving it for publication\break was F. A. Author.}
-
-\author{A. Arsenovic\affilmark{1}}
-\affil{810 Labs LLC} 
-\corresp{CORRESPONDING AUTHOR: A. Arsenovic (e-mail: \href{mailto:alex@810lab.com}{alex@810lab.com}).}
-
 % After Alex, should we  proceed by GitHub contributor ranking or by alphabetical order ?
-%
 % GitHub list of contributors
 % https://github.com/scikit-rf/scikit-rf/graphs/contributors
+%
+\author{A. Arsenovic, % 810 Labs LLC
+	    J. Hillairet, % CEA, IRFM, F-13108 St-Paul-Lez-Durance, France 
+		J. Anderson, % Purdue University, West Lafayette, Indiana, USA
+		H. Forsten, % TBD
+		Vincent Rieß, % TBD
+ 		Michael Eller, % University of Virginia, Virginia, USA
+		Noah Sauber, %University of Virginia, Virginia, USA
+		Robert Weikle, %
+		W. Barnhart, %HawkEye 360
+	}
 
-\author{J. Hillairet\affilmark{2}}
-\affil{CEA, IRFM, F-13108 St-Paul-Lez-Durance, France} 
+%CORRESPONDING AUTHOR: A. Arsenovic (e-mail: \href{mailto:alex@810lab.com}{alex@810lab.com}).
 
-\author{J. Anderson\affilmark{3}}
-\affil{Purdue University, West Lafayette, Indiana, USA}
-
-\author{H. Forsten\affilmark{4}}
-\affil{TBD} 
-
-\author{Vincent Rieß}
-
-\author{Michael Eller\affilmark{5}}
-\affil{University of Virginia, Virginia, USA}
-
-\author{Noah Sauber\affilmark{5}}
-%\affil{University of Virginia, Virginia, USA}
-
-\author{Robert Weikle\affilmark{6}}
-\affil{TBD}
-
-\author{W. Barnhart\affilmark{7}}
-\affil{HawkEye 360}
-
-%%%%% Please add your name and affiliation here
-
-
-
-%\authornote{This work was supported by ...}
-
-\markboth{PREPARATION OF PAPERS FOR IEEE JOURNAL OF MICROWAVES}{A. ARSENOVIC {\itshape ET AL}}
+% make the title area
+\maketitle
 
 \begin{abstract}
 Measurements at microwave frequencies can require a  significant  amount of post-processing  and  analysis,  especially  in research  and  prototyping environments.  From  our  experience, none  of   the   existing   software   products  satisfy   the   needs   of these environments in which the abilities to understand, modify, and  extend  existing  functionality  are  vital.  In  an  attempt  to provide this  needed  functionality,  we  have  created  scikit-rf;  an open  source,  BSD-licensed  package  for  microwave  engineering implemented   in   the   Python  programming   language.   Scikit-rf seeks  to  provide  a  modern,  object-oriented  library  for  network analysis  and  calibration  aimed  at  being  flexible  and scalable. In  this  paper,  we  introduce  the  motivation  behind  the  scikit-rf  project   and   demonstrate  its  current   abilities   with   some example applications.
@@ -123,8 +88,6 @@ Measurements at microwave frequencies can require a  significant  amount of post
 \begin{IEEEkeywords}
 Scientific computing, Object oriented programming, Network theory, Circuit analysis, Circuit simulation, Microwave circuits
 \end{IEEEkeywords}
-
-\maketitle
 
 \section{Context and Motivations}
 With the rapid proliferation of telecommunication and radio-frequency (RF) applications, so too has demand grown for tools to design and characterize these devices. Scikit-rf is a Python package designed to make RF/Microwave engineering both robust and approachable. The package provides a modern, object-oriented library for RF network analysis, circuit building, calibration, and simulation. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp} files), connecting or de-embedding $N$-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as Vector Network Analyzer (VNA) calibrations, time-gating, vector fitting, interpolating between an individual set of networks, deriving network statistical properties and support of Virtual Instruments for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc.), Smith Charts or automated uncertainty bounds.
