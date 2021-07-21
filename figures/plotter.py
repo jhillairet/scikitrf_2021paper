@@ -49,17 +49,25 @@ def plot_ringslot_dB():
     mplt.close()
 
 def plot_networkset_uncertainty():
-    #ntwk_list = skrf.NetworkSet([skrf.data.ro_1, skrf.data.ro_2, skrf.data.ro_3])
-
-    # using manual network creation instead
-    ro_1 = skrf.Network('./ro,1.s1p')
-    ro_2 = skrf.Network('./ro,2.s1p')
-    ro_3 = skrf.Network('./ro,3.s1p')
-    ntwk_list = skrf.NetworkSet([ro_1, ro_2, ro_3])
+    ro1 = skrf.data.ro_1
+    ro1.name = 'ro1'
+    ro2 = skrf.data.ro_2
+    ro2.name = 'ro2'
+    ro3 = skrf.data.ro_3
+    ro3.name = 'ro3'
+    ntwk_list = skrf.NetworkSet([ro1, ro2, ro3])
 
     mplt.figure()
     ntwk_list.plot_s_db()
-    #ntwk_list.plot_uncertainty_bounds_s_sb()
+    mplt.ylim(-16, -13)
+    mplt.savefig('./networkset_individual.pdf')
+    mplt.savefig('./networkset_individual.png', dpi=600)
+    mplt.close()
+
+    mplt.figure()
+    ntwk_list.plot_uncertainty_bounds_s_db()
+    mplt.ylim(-16, -13)
+    mplt.legend().remove()
     mplt.savefig('./networkset_uncertainty.pdf')
     mplt.savefig('./networkset_uncertainty.png', dpi=600)
     mplt.close()
@@ -185,10 +193,10 @@ def plot_vectorfitting_spice():
     mplt.close()
 
 
-plot_ringslot_smith()
-plot_ringslot_dB()
+#plot_ringslot_smith()
+#plot_ringslot_dB()
 plot_networkset_uncertainty()
-plot_time_gating()
+#plot_time_gating()
 #run_vectorfitting()
-plot_vectorfitting()
+#plot_vectorfitting()
 #plot_vectorfitting_spice()
