@@ -64,7 +64,7 @@
 	    J. Hillairet, % CEA, IRFM, F-13108 St-Paul-Lez-Durance, France 
 		J. Anderson, % Purdue University, West Lafayette, Indiana, USA
 		H. Forsten, % VTT Technical Research Centre of Finland
-		Vincent Rieß, \\ % TBD
+		Vincent Rieß, \\ % GitHub contributor 
  		Michael Eller, % University of Virginia, Virginia, USA
 		Noah Sauber, %University of Virginia, Virginia, USA
 		Robert Weikle, %
@@ -241,7 +241,7 @@ ntwk_list.plot_uncertainty_bounds_s_db(label='ro mean with uncertainty, S11')
 	    \includegraphics[width=0.45\textwidth]{figures/networkset_uncertainty.pdf} 
 	    \label{fig:networkset_uncertainty}
 	}
-	\caption{Logarithmic magnitudes of $S_{11}$ of the \texttt{ro} example networks. (a) Individual frequency responses. (b) Calculated average and uncertainty band ($3 \sigma$).}
+	\caption{Logarithmic magnitudes of $S_{11}$ of the \texttt{ro} example networks. (a) Individual frequency responses. (b) Calculated average and uncertainty bound ($3 \sigma$).}
 	\label{fig:networkset}
 \end{figure}
 
@@ -445,7 +445,7 @@ vf.write_spice_subcircuit_s('example.sp')
 
 In Fig. \ref{fig:vectfit_magnitude} and \ref{fig:vectfit_error}, four of the 16 vector fitted scattering parameter responses of the example network are plotted and compared to the original network samples, showing an absolute error of less than $0.01$. SPICE simulations using the exported subcircuit file in \textit{ngspice} \cite{ngspice_website} achieve a similar accuracy. The simulated scattering parameter obtained from an AC simulation are shown in Fig. \ref{fig:vectfit_spice}.
 
-In general, the quality of the fit strongly depends on the choice of real and complex-conjugate starting poles, which should suite the number of resonances in the responses. Measurement noise in the sampled responses, as included in this 4-port example, further contributes to the deviation of the fit with the smooth basis functions used by the vector fitting method. The translation of the fitting parameters into the SPICE equivalent subcircuit is straightforward and the accuracy is only limited by rounding errors. However, the accuracy of the simulation results also depends on the tolerance settings of the simulator.
+The quality of the fit strongly depends on the choice of real and complex-conjugate starting poles, which should suit the number of resonances in the responses. Measurement noise in the sampled responses, as included in this 4-port example, further contributes to the deviation of the fit with the smooth basis functions used by the vector fitting method. The translation of the fitting parameters into the SPICE equivalent subcircuit is straightforward, and the accuracy is only limited by rounding errors. However, the accuracy of the simulation results also depends on the tolerance settings of the simulator.
 
 \section{Conclusion}
 \skrf{} is an open-source Python package produced for RF/Microwave engineering. The package provides a modern, object-oriented library for RF network analysis, circuit building and calibration. Below is a current non-exhaustive feature list of \skrf{} (as of version 0.18).
